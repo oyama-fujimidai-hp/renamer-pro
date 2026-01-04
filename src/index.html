@@ -424,7 +424,7 @@
                     ),
                     h('td', { className: "p-5" },
                       h('code', { className: "text-xs bg-slate-100 p-2 rounded-lg text-slate-600 block break-all" },
-                        `${f.date}_${f.user}_${f.doctor}_${f.manager}.pdf`
+                        `${f.date}_${f.user}_${f.doctor}_${f.manager}`.replace(/\s+/g, '') + ".pdf"
                       )
                     ),
                     h('td', { className: "p-5" },
