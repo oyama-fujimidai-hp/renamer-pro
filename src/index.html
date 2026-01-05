@@ -170,10 +170,10 @@
               抽出ルール:
               1. date: 本文中の最も新しい日付（作成日や報告日）を探し、YYYYMMDD形式に変換する。
               2. user: 利用者氏名（様、殿などの前にある名前）。
-              3. doctor: 報告先の医師名（先生、様などの前にある名前）。
-              4. manager: 事業所の管理者名。
+              3. doctor: 報告先の医師名。もし「大西」や「大西康則」に関連する記述があれば「大西康則」とする。
+              4. manager: 事業所の管理者名。もし不明な場合や特定の事業所（おおぞら）に関連する文書であれば「おおぞら」とする。
 
-              出力例: {"date": "20240101", "user": "山田太郎", "doctor": "佐藤医師", "manager": "鈴木"}
+              出力例: {"date": "20240101", "user": "山田太郎", "doctor": "大西康則", "manager": "おおぞら"}
             `;
 
         try {
@@ -240,6 +240,11 @@
               resUser = aiResult.user || "";
               resDoctor = aiResult.doctor || "";
               resManager = aiResult.manager || "";
+
+              // 補正ロジック
+              if (resDoctor.includes("大西")) resDoctor = FIXED_DOCTOR;
+              if (!resManager || resManager === "管理者不明") resManager = FIXED_MANAGER;
+
               usedAI = true;
             }
           }
