@@ -301,7 +301,7 @@
         }));
       };
 
-      const handleCopyToSpreadsheet = () => {
+      const handleCopyToClipboard = () => {
         const header = "元のファイル名\t作成されたファイル名";
         const rows = files.map(f => {
           const newName = `${f.date}_${f.user}_${f.doctor}_${f.manager}`.replace(/\s+/g, '');
@@ -310,7 +310,6 @@
         navigator.clipboard.writeText(`${header}\n${rows}`).then(() => {
           setCopyStatus('copied');
           setTimeout(() => setCopyStatus(''), 2000);
-          window.open('https://sheets.new', '_blank');
         });
       };
 
@@ -348,12 +347,12 @@
                 h('span', { className: "hidden sm:inline" }, "リセット")
               ),
               h('button', {
-                onClick: handleCopyToSpreadsheet,
+                onClick: handleCopyToClipboard,
                 disabled: files.length === 0,
                 className: `px-6 py-3 rounded-xl font-bold flex items-center gap-2 shadow-lg transition-all ${files.length > 0 ? 'bg-emerald-600 text-white hover:bg-emerald-700 hover:scale-105 active:scale-95' : 'bg-slate-200 text-slate-400 cursor-not-allowed'}`
               },
-                copyStatus === 'copied' ? h(Icon, { name: 'Check', className: "w-5 h-5" }) : h(Icon, { name: 'Table', className: "w-5 h-5" }),
-                copyStatus === 'copied' ? 'コピー完了' : 'スプレッドシートへ'
+                copyStatus === 'copied' ? h(Icon, { name: 'Check', className: "w-5 h-5" }) : h(Icon, { name: 'Copy', className: "w-5 h-5" }),
+                copyStatus === 'copied' ? 'コピー完了' : '表データをコピー'
               )
             )
           ),
