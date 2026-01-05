@@ -412,7 +412,7 @@
           // Results Table
           files.length > 0 && (() => {
             const fileNameCounts = files.reduce((acc, f) => {
-              const name = `${f.date}_${f.user}_${f.doctor}_${f.manager}`.replace(/\s+/g, '') + ".pdf";
+              const name = `${f.date}_${f.user}_${f.doctor}_${f.manager}`.replace(/\s+/g, '');
               acc[name] = (acc[name] || 0) + 1;
               return acc;
             }, {});
@@ -433,7 +433,7 @@
                   ),
                   h('tbody', { className: "divide-y divide-slate-100" },
                     files.map(f => {
-                      const outputName = `${f.date}_${f.user}_${f.doctor}_${f.manager}`.replace(/\s+/g, '') + ".pdf";
+                      const outputName = `${f.date}_${f.user}_${f.doctor}_${f.manager}`.replace(/\s+/g, '');
                       const isDuplicate = fileNameCounts[outputName] > 1;
 
                       return h('tr', { key: f.id, className: `hover:bg-blue-50/30 transition-colors ${isDuplicate ? 'bg-red-50/50' : ''}` },
@@ -465,7 +465,7 @@
                         h('td', { className: "p-5" },
                           h('div', { className: "flex flex-col gap-1" },
                             h('code', { className: `text-xs p-2 rounded-lg block break-all font-bold ${isDuplicate ? 'bg-red-100 text-red-700 ring-2 ring-red-500' : 'bg-slate-100 text-slate-600'}` },
-                              outputName
+                              outputName + ".pdf"
                             ),
                             isDuplicate && h('span', { className: "text-[10px] text-red-600 font-bold flex items-center gap-1" },
                               h(Icon, { name: 'AlertCircle', className: "w-3 h-3" }),
